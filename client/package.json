@@ -1,0 +1,37 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "run:avp": "webspatial-builder run --base=$XR_DEV_SERVER",
+    "build:avp": "webspatial-builder build --base=$XR_PRE_SERVER --bundle-id=$XR_BUNDLE_ID --teamId=$XR_TEAM_ID",
+    "publish:avp": "webspatial-builder publish  --base=$XR_PROD_SERVER --bundle-id=$XR_BUNDLE_ID --teamId=$XR_TEAM_ID --version=$XR_VERSION --u=$XR_DEV_NAME --p=$XR_DEV_PASSWORD"
+  
+  },
+  "dependencies": {
+    "@google/model-viewer": "^4.1.0",
+    "@webspatial/core-sdk": "^1.0.2",
+    "@webspatial/react-sdk": "^1.0.2",
+    "next": "15.5.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "styled-components": "^6.1.19",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@webspatial/builder": "^1.0.2",
+    "@webspatial/next-plugin": "^0.1.8",
+    "@webspatial/platform-visionos": "^1.0.2",
+    "dotenv": "^17.2.2",
+    "dotenv-cli": "^10.0.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
