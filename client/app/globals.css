@@ -182,3 +182,68 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
+
+/* Spatial/XR specific styles */
+[enable-xr] {
+  position: relative;
+}
+
+/* Auto-fill grid for spatial environments */
+.auto-fill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Enhanced spatial card styling */
+[enable-xr][debugname*="card-"] {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+[enable-xr][debugname*="card-"]:hover {
+  transform: translateY(-8px) rotateY(2deg);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Spatial button styling */
+[enable-xr][debugname*="filter-"],
+[enable-xr][debugname*="clear-filters"] {
+  transition: all 0.2s ease;
+}
+
+[enable-xr][debugname*="filter-"]:hover,
+[enable-xr][debugname*="clear-filters"]:hover {
+  transform: translateY(-2px);
+}
+
+/* Traffic light spatial effects */
+[enable-xr][debugname*="traffic-light"] {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+[enable-xr][debugname*="traffic-light"]:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Card art spatial interaction */
+[enable-xr][debugname*="card-art"] {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+[enable-xr][debugname*="card-art"]:hover {
+  transform: scale(1.05);
+}
+
+/* Search input spatial styling */
+[enable-xr][debugname="search-input"] {
+  transition: all 0.2s ease;
+}
+
+[enable-xr][debugname="search-input"]:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

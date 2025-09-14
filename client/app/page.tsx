@@ -1,5 +1,15 @@
-import AquaWindow from './components/ui/AquaWindow';
-import CardShop from './components/CardShop';
+"use client";
+
+import dynamic from 'next/dynamic';
+
+const AquaWindow = dynamic(() => import('./components/ui/AquaWindow'), { 
+  ssr: false,
+  loading: () => <div className="min-h-screen flex items-center justify-center">Loading...</div>
+});
+
+const CardShop = dynamic(() => import('./components/CardShop'), { 
+  ssr: false 
+});
 
 export default function Home() {
   return (
