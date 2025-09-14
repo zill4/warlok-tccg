@@ -17,16 +17,22 @@ const AquaWindow: React.FC<AquaWindowProps> = ({
   footer,
   className = "",
 }) => {
-  const isWebSpatial = process.env.XR_ENV === 'avp';
+  const isAVP = import.meta.env.XR_ENV === "avp";
 
   return (
     <div 
+      enable-xr
+      debugName="aqua-window"
       className={`aqua-window ${className}`}
-      style={isWebSpatial ? {
+      style={isAVP ? {
         "--xr-background-material": "thin"
       } as React.CSSProperties : {}}
     >
-      <div className="aqua-titlebar">
+      <div
+        enable-xr
+        debugName="aqua-titlebar" 
+        className="aqua-titlebar"
+      >
         <div className="traffic-lights">
           <span className="traffic-light-red" />
           <span className="traffic-light-yellow" />
@@ -42,18 +48,46 @@ const AquaWindow: React.FC<AquaWindowProps> = ({
         )}
       </div>
 
-      {toolbar && <div className="aqua-toolbar">{toolbar}</div>}
+      {toolbar && (
+        <div 
+          enable-xr
+          debugName="aqua-toolbar"
+          className="aqua-toolbar"
+        >
+          {toolbar}
+        </div>
+      )}
 
       <div className={`aqua-body ${sidebar ? "with-sidebar" : ""}`}>
-        {sidebar && <aside className="aqua-sidebar">{sidebar}</aside>}
-        <section className="aqua-content">{children}</section>
+        {sidebar && (
+          <aside 
+            enable-xr
+            debugName="aqua-sidebar"
+            className="aqua-sidebar"
+          >
+            {sidebar}
+          </aside>
+        )}
+        <section 
+          enable-xr
+          debugName="aqua-content"
+          className="aqua-content"
+        >
+          {children}
+        </section>
       </div>
 
-      {footer && <div className="aqua-footer">{footer}</div>}
+      {footer && (
+        <div 
+          enable-xr
+          debugName="aqua-footer"
+          className="aqua-footer"
+        >
+          {footer}
+        </div>
+      )}
     </div>
   );
 };
 
 export default AquaWindow;
-
-

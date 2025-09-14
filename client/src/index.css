@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #333;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+}
+
+/* Card hover animations and effects */
+.card-glow {
+  box-shadow: 0 0 20px rgba(147, 197, 253, 0.5);
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Aqua UI styles inspired by Mac OS X Panther */
+.aqua-window {
+  background: #dfe3e6 !important;
+  border-radius: 12px;
+  border: 1px solid #9aa3ad;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 2px 0 rgba(255,255,255,0.6) inset;
+  color: #333 !important;
+  min-height: 80vh;
+}
+
+.aqua-titlebar {
+  position: relative;
+  height: 34px;
+  background: linear-gradient(#c7ccd1, #a6acb3) !important;
+  border-bottom: 1px solid #8b929a;
+  display: flex;
+  align-items: center;
+}
+
+.traffic-lights {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  left: 10px;
+}
+
+.traffic-light-red,
+.traffic-light-yellow,
+.traffic-light-green {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25), inset 0 2px 0 rgba(255,255,255,0.7);
+  display: inline-block;
+}
+.traffic-light-red { background: radial-gradient(circle at 30% 30%, #ff8a8a, #ff3b30); }
+.traffic-light-yellow { background: radial-gradient(circle at 30% 30%, #ffe28a, #ffcc00); }
+.traffic-light-green { background: radial-gradient(circle at 30% 30%, #a6f5b2, #34c759); }
+
+.aqua-title {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  color: #2f3439 !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+  pointer-events: none;
+  font-size: 13px;
+}
+
+.aqua-toolbar {
+  background: linear-gradient(#f5f7f9, #e4e8ec);
+  border-bottom: 1px solid #b9bfc6;
+  padding: 8px 12px;
+}
+
+.aqua-body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 60vh;
+}
+.aqua-body.with-sidebar .aqua-content { background: #f8fafc; }
+.aqua-body:not(.with-sidebar) { grid-template-columns: 1fr; }
+
+.aqua-sidebar {
+  background: linear-gradient(#eef1f4, #e2e6ea);
+  border-right: 1px solid #c3c9d0;
+  padding: 16px;
+}
+
+.aqua-content {
+  background: linear-gradient(#ffffff, #f3f6f9) !important;
+  padding: 16px;
+  color: #333 !important;
+}
+
+.aqua-footer {
+  background: #eef1f4;
+  border-top: 1px solid #c3c9d0;
+  padding: 10px 12px;
+}
+
+/* Auto-fill grid for card layouts */
+.auto-fill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Card Shop Styles */
+.card-shop {
+  min-height: 100vh;
+}
+
+/* XR/Spatial Styles - Applied when in spatial environment */
+html.is-spatial {
+  background-color: transparent;
+  --xr-background-material: transparent;
+
+  body {
+    background: none;
+    --xr-background-material: transparent;
+  }
+
+  /* Main card shop container in spatial */
+  .card-shop {
+    background: none;
+    --xr-background-material: transparent;
+    position: relative;
+    top: 100px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  /* Card styling in XR */
+  [enable-xr*="card"] {
+    background: none !important;
+    --xr-background-material: translucent;
+    border-radius: 16px;
+    --xr-back: 20;
+    transition: all 0.3s ease;
+  }
+
+  [enable-xr*="card"]:hover {
+    transform: translateY(-12px) rotateY(3deg) translateZ(30px);
+    --xr-back: 40;
+    box-shadow: none;
+  }
+
+  /* Filter controls in XR */
+  [enable-xr="filter-controls"] {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    --xr-back: 100;
+    background: none;
+    --xr-background-material: translucent;
+    border-radius: 50px;
+    padding: 20px;
+    z-index: 50;
+  }
+
+  /* Search input in XR */
+  [enable-xr] input[type="text"] {
+    background: none !important;
+    --xr-background-material: translucent;
+    color: #ffffff !important;
+    border-radius: 20px;
+    --xr-back: 5;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  [enable-xr] input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  /* Filter buttons in XR */
+  [enable-xr] button {
+    background: none !important;
+    --xr-background-material: translucent;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    --xr-back: 10;
+  }
+
+  [enable-xr] button.bg-indigo-600 {
+    --xr-background-material: thin;
+    color: #ffffff !important;
+    border: 2px solid #60a5fa;
+    --xr-back: 20;
+  }
+
+  [enable-xr] button:hover {
+    --xr-background-material: thin;
+    --xr-back: 25;
+    transform: translateZ(10px);
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Grid layout in XR */
+  [enable-xr-monitor] {
+    margin-top: 200px; /* Account for fixed toolbar */
+    padding: 40px;
+  }
+
+  /* Text color adjustments for XR */
+  .text-gray-700,
+  .text-gray-600,
+  .text-gray-800,
+  .text-gray-900 {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .text-gray-100,
+  .text-white {
+    color: #ffffff !important;
+  }
+
+  /* Card content in XR */
+  [enable-xr] .bg-white,
+  [enable-xr] .bg-gray-50,
+  [enable-xr] .bg-gray-100 {
+    background: none !important;
+    --xr-background-material: ultraThin;
+  }
+
+  /* Card images in XR */
+  [enable-xr] img {
+    border-radius: 12px;
+    --xr-back: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  [enable-xr] img:hover {
+    transform: scale(1.05) translateZ(15px);
+    --xr-back: 25;
+  }
+
+  /* Title in XR */
+  .card-shop h1 {
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    --xr-back: 30;
+    position: relative;
+  }
+
+  /* Card info background in XR */
+  [enable-xr*="card-info"] {
+    background: none !important;
+    --xr-background-material: ultraThin;
+    color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  /* Rarity colors in XR - enhanced visibility */
+  .text-red-600 { color: #ef4444 !important; }
+  .text-blue-600 { color: #3b82f6 !important; }
+  .text-yellow-400 { color: #fbbf24 !important; }
+  .text-purple-800 { color: #a855f7 !important; }
+  .text-green-600 { color: #16a34a !important; }
+  .text-gray-400 { color: #9ca3af !important; }
+
+  /* Card border enhancement in XR */
+  [enable-xr*="card"] {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  [enable-xr*="card"]:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Regular (non-XR) spatial enhancement styles */
+[enable-xr] {
+  position: relative;
+  transition: all 0.2s ease;
+}
