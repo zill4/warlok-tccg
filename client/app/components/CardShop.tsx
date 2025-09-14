@@ -14,11 +14,20 @@ const FILTERS: Array<{ label: string; value: "All" | CardType }> = [
 export default function CardShop() {
   const [query, setQuery] = React.useState("");
   const [filter, setFilter] = React.useState<"All" | CardType>("All");
-  const [isAVP, setIsAVP] = React.useState(false);
+  const isWebSpatial = process.env.XR_ENV === 'avp';
 
   React.useEffect(() => {
-    // @ts-ignore - WebSpatial global check
-    setIsAVP(typeof __XR_ENV_BASE__ !== 'undefined');
+    // Add spatial class to html element if in XR mode
+    // if (isWebSpatial && typeof document !== 'undefined') {
+    //   document.documentElement.classList.add('is-spatial');
+    // }
+    
+    console.log('XR Environment:', process.env.XR_ENV, 'isWebSpatial:', isWebSpatial);
+    
+    // // Add debug info to title for easy verification
+    // if (typeof document !== 'undefined') {
+    //   document.title = isWebSpatial ? 'WARLOK Card Shop (XR Mode)' : 'WARLOK Card Shop';
+    // }
   }, []);
 
   const filtered = React.useMemo(() => {
@@ -34,19 +43,19 @@ export default function CardShop() {
   }, [query, filter]);
 
   return (
-    <div className="__enableXr__ flex flex-col gap-4">
-      <div className="__enableXr__ aqua-toolbar-controls">
-        <div className="__enableXr__ aqua-segmented">
+    <div className="flex flex-col gap-4">
+      <div className="aqua-toolbar-controls">
+        <div className="aqua-segmented">
           {FILTERS.map((f) => (
             <button
               key={f.value}
-              style={isAVP ? {
+              style={isWebSpatial ? {
                 "--xr-background-material": filter === f.value ? "thin" : "thick"
               } as React.CSSProperties : {}}
-              className={`__enableXr__ aqua-segment ${
+              className={`aqua-segment ${
                 filter === f.value ? "active" : ""
               } ${
-                isAVP 
+                isWebSpatial 
                   ? filter === f.value 
                     ? "text-gray-100" 
                     : "text-gray-900"
@@ -59,15 +68,15 @@ export default function CardShop() {
             </button>
           ))}
         </div>
-        <div className="__enableXr__ aqua-search">
+        <div className="aqua-search">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search cards"
-            className="__enableXr__ aqua-search-input"
+            className="aqua-search-input"
             aria-label="Search cards"
-            style={isAVP ? {
+            style={isWebSpatial ? {
               "--xr-background-material": "ultraThin"
             } as React.CSSProperties : {}}
           />
@@ -75,7 +84,7 @@ export default function CardShop() {
       </div>
 
       <div 
-        className="__enableXr__ auto-fill-grid gap-4 sm:gap-6 p-2"
+        className="auto-fill-grid gap-4 sm:gap-6 p-2"
         style={{
           gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))'
         }}
@@ -85,12 +94,12 @@ export default function CardShop() {
             <Card key={c.id} card={c} className="cursor-default" />
           ))
         ) : (
-          <div className="__enableXr__ col-span-full text-center py-8 sm:py-12">
+          <div className="col-span-full text-center py-8 sm:py-12">
             <p className="text-lg sm:text-xl text-gray-600">
               No cards found matching your criteria.
             </p>
             <button
-              className="__enableXr__ mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
               onClick={() => {
                 setFilter("All");
                 setQuery("");

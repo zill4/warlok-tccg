@@ -7,6 +7,9 @@ const nextConfig: NextConfig = withWebSpatial()({
   typescript: {
     ignoreBuildErrors: true,
   },
+  env: {
+    XR_ENV: process.env.XR_ENV || "",
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

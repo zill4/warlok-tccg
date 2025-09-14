@@ -17,28 +17,24 @@ const AquaWindow: React.FC<AquaWindowProps> = ({
   footer,
   className = "",
 }) => {
-  const [isAVP, setIsAVP] = React.useState(false);
+  const isWebSpatial = process.env.XR_ENV === 'avp';
 
-  React.useEffect(() => {
-    // @ts-ignore - WebSpatial global check
-    setIsAVP(typeof __XR_ENV_BASE__ !== 'undefined');
-  }, []);
   return (
     <div 
-      className={`__enableXr__ aqua-window ${className}`}
-      style={isAVP ? {
+      className={`aqua-window ${className}`}
+      style={isWebSpatial ? {
         "--xr-background-material": "thin"
       } as React.CSSProperties : {}}
     >
-      <div className="__enableXr__ aqua-titlebar">
-        <div className="__enableXr__ traffic-lights">
-          <span className="__enableXr__ traffic-light-red" />
-          <span className="__enableXr__ traffic-light-yellow" />
-          <span className="__enableXr__ traffic-light-green" />
+      <div className="aqua-titlebar">
+        <div className="traffic-lights">
+          <span className="traffic-light-red" />
+          <span className="traffic-light-yellow" />
+          <span className="traffic-light-green" />
         </div>
         {title && (
           <div 
-            className="__enableXr__ aqua-title" 
+            className="aqua-title" 
             title={title}
           >
             {title}
@@ -46,14 +42,14 @@ const AquaWindow: React.FC<AquaWindowProps> = ({
         )}
       </div>
 
-      {toolbar && <div className="__enableXr__ aqua-toolbar">{toolbar}</div>}
+      {toolbar && <div className="aqua-toolbar">{toolbar}</div>}
 
-      <div className={`__enableXr__ aqua-body ${sidebar ? "with-sidebar" : ""}`}>
-        {sidebar && <aside className="__enableXr__ aqua-sidebar">{sidebar}</aside>}
-        <section className="__enableXr__ aqua-content">{children}</section>
+      <div className={`aqua-body ${sidebar ? "with-sidebar" : ""}`}>
+        {sidebar && <aside className="aqua-sidebar">{sidebar}</aside>}
+        <section className="aqua-content">{children}</section>
       </div>
 
-      {footer && <div className="__enableXr__ aqua-footer">{footer}</div>}
+      {footer && <div className="aqua-footer">{footer}</div>}
     </div>
   );
 };

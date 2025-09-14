@@ -69,16 +69,22 @@ body {
   left: 10px;
 }
 
-.traffic-light {
+.traffic-light,
+.traffic-light-red,
+.traffic-light-yellow,
+.traffic-light-green {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.25), inset 0 2px 0 rgba(255,255,255,0.7);
   display: inline-block;
 }
-.traffic-light.red { background: radial-gradient(circle at 30% 30%, #ff8a8a, #ff3b30); }
-.traffic-light.yellow { background: radial-gradient(circle at 30% 30%, #ffe28a, #ffcc00); }
-.traffic-light.green { background: radial-gradient(circle at 30% 30%, #a6f5b2, #34c759); }
+.traffic-light.red,
+.traffic-light-red { background: radial-gradient(circle at 30% 30%, #ff8a8a, #ff3b30); }
+.traffic-light.yellow,
+.traffic-light-yellow { background: radial-gradient(circle at 30% 30%, #ffe28a, #ffcc00); }
+.traffic-light.green,
+.traffic-light-green { background: radial-gradient(circle at 30% 30%, #a6f5b2, #34c759); }
 
 .aqua-title {
   width: 100%;
@@ -183,67 +189,180 @@ body {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Spatial/XR specific styles */
-[enable-xr] {
-  position: relative;
-}
-
 /* Auto-fill grid for spatial environments */
 .auto-fill-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
-/* Enhanced spatial card styling */
-[enable-xr][debugname*="card-"] {
-  transition: all 0.3s ease;
-  border-radius: 12px;
-  overflow: hidden;
+/* XR/Spatial Styles - Applied when in spatial environment */
+html.is-spatial {
+  background-color: transparent;
+  --xr-background-material: transparent;
+
+  /* Main window positioning for spatial */
+  body > div {
+    background: none;
+    --xr-background-material: transparent;
+    position: relative;
+    top: 70px;
+    margin-left: 40px;
+  }
+
+  /* Aqua Window in XR */
+  .aqua-window {
+    background: none !important;
+    --xr-background-material: translucent;
+    border-radius: 20px;
+    --xr-back: 50;
+  }
+
+  .aqua-titlebar {
+    background: none !important;
+    --xr-background-material: translucent;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .aqua-content {
+    background: none !important;
+    --xr-background-material: transparent;
+  }
+
+  /* Card styling in XR */
+  .__enableXr__[class*="card-hover-effect"],
+  .card-hover-effect.__enableXr__ {
+    background: none !important;
+    --xr-background-material: translucent;
+    border-radius: 16px;
+    --xr-back: 20;
+    transition: all 0.3s ease;
+  }
+
+  .__enableXr__[class*="card-hover-effect"]:hover,
+  .card-hover-effect.__enableXr__:hover {
+    transform: translateY(-12px) rotateY(3deg) translateZ(30px);
+    --xr-back: 40;
+    box-shadow: none;
+  }
+
+  /* Toolbar controls in XR */
+  .aqua-toolbar-controls.__enableXr__ {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 800px;
+    --xr-back: 100;
+    background: none;
+    --xr-background-material: translucent;
+    border-radius: 50px;
+    padding: 20px;
+  }
+
+  .aqua-segmented.__enableXr__ {
+    background: none !important;
+    --xr-background-material: translucent;
+    border-radius: 25px;
+  }
+
+  .aqua-segment.__enableXr__ {
+    background: none !important;
+    --xr-background-material: translucent;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .aqua-segment.__enableXr__.active {
+    background: none !important;
+    --xr-background-material: thin;
+    color: #ffffff;
+    --xr-back: 10;
+  }
+
+  .aqua-search-input.__enableXr__ {
+    background: none !important;
+    --xr-background-material: translucent;
+    color: #ffffff;
+    border-radius: 20px;
+    --xr-back: 5;
+  }
+
+  .aqua-search-input.__enableXr__::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  /* Grid layout in XR */
+  .auto-fill-grid.__enableXr__ {
+    margin-top: 150px; /* Account for fixed toolbar */
+    padding: 40px;
+  }
+
+  /* Traffic lights in XR */
+  .traffic-light-red.__enableXr__,
+  .traffic-light-yellow.__enableXr__,
+  .traffic-light-green.__enableXr__ {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    --xr-back: 15;
+  }
+
+  .traffic-light-red.__enableXr__:hover,
+  .traffic-light-yellow.__enableXr__:hover,
+  .traffic-light-green.__enableXr__:hover {
+    transform: scale(1.2) translateZ(10px);
+    --xr-back: 25;
+  }
+
+  /* Card content in XR */
+  .__enableXr__ .bg-orange-100,
+  .__enableXr__ .bg-orange-200,
+  .__enableXr__ .bg-green-200,
+  .__enableXr__ .bg-white {
+    background: none !important;
+    --xr-background-material: ultraThin;
+  }
+
+  /* Text color adjustments for XR */
+  .__enableXr__ .text-gray-700,
+  .__enableXr__ .text-gray-600 {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .__enableXr__ .text-white {
+    color: #ffffff !important;
+  }
+
+  /* Card art in XR */
+  .__enableXr__ img {
+    border-radius: 12px;
+    --xr-back: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .__enableXr__ img:hover {
+    transform: scale(1.05) translateZ(15px);
+    --xr-back: 25;
+  }
+
+  /* Clear filters button in XR */
+  .bg-blue-500.__enableXr__ {
+    background: none !important;
+    --xr-background-material: translucent;
+    color: #60a5fa;
+    border: 2px solid #60a5fa;
+    --xr-back: 15;
+  }
+
+  .bg-blue-500.__enableXr__:hover {
+    --xr-background-material: thin;
+    --xr-back: 25;
+    transform: translateZ(10px);
+  }
 }
 
-[enable-xr][debugname*="card-"]:hover {
-  transform: translateY(-8px) rotateY(2deg);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
-/* Spatial button styling */
-[enable-xr][debugname*="filter-"],
-[enable-xr][debugname*="clear-filters"] {
+/* Regular (non-XR) spatial enhancement styles */
+.__enableXr__ {
+  position: relative;
   transition: all 0.2s ease;
-}
-
-[enable-xr][debugname*="filter-"]:hover,
-[enable-xr][debugname*="clear-filters"]:hover {
-  transform: translateY(-2px);
-}
-
-/* Traffic light spatial effects */
-[enable-xr][debugname*="traffic-light"] {
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-[enable-xr][debugname*="traffic-light"]:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-/* Card art spatial interaction */
-[enable-xr][debugname*="card-art"] {
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-[enable-xr][debugname*="card-art"]:hover {
-  transform: scale(1.05);
-}
-
-/* Search input spatial styling */
-[enable-xr][debugname="search-input"] {
-  transition: all 0.2s ease;
-}
-
-[enable-xr][debugname="search-input"]:focus {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
